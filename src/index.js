@@ -35,6 +35,7 @@ export default class RNPickerSelect extends PureComponent {
         // Custom Modal props (iOS only)
         doneText: PropTypes.string,
         onDonePress: PropTypes.func,
+        showArrows: PropTypes.bool,
         onUpArrow: PropTypes.func,
         onDownArrow: PropTypes.func,
         onClose: PropTypes.func,
@@ -74,6 +75,7 @@ export default class RNPickerSelect extends PureComponent {
         fixAndroidTouchableBug: false,
         doneText: 'Done',
         onDonePress: null,
+        showArrows: true,
         onUpArrow: null,
         onDownArrow: null,
         onOpen: null,
@@ -278,6 +280,7 @@ export default class RNPickerSelect extends PureComponent {
         const {
             InputAccessoryView,
             doneText,
+            showArrows,
             onUpArrow,
             onDownArrow,
             onDonePress,
@@ -297,7 +300,7 @@ export default class RNPickerSelect extends PureComponent {
                 testID="input_accessory_view"
             >
                 <View style={[defaultStyles.chevronContainer, style.chevronContainer]}>
-                    <TouchableOpacity
+                    {showArrows ? <><TouchableOpacity
                         activeOpacity={onUpArrow ? 0.5 : 1}
                         onPress={onUpArrow ? this.onUpArrow : null}
                     >
@@ -326,18 +329,12 @@ export default class RNPickerSelect extends PureComponent {
                                     : {},
                             ]}
                         />
-                    </TouchableOpacity>
+                    </TouchableOpacity></> : null}
                 </View>
                 <TouchableOpacity
                     testID="done_button"
                     onPress={() => {
                         this.togglePicker(true, onDonePress);
-                    }}
-                    onPressIn={() => {
-                        this.setState({ doneDepressed: true });
-                    }}
-                    onPressOut={() => {
-                        this.setState({ doneDepressed: false });
                     }}
                     hitSlop={{ top: 4, right: 4, bottom: 4, left: 4 }}
                     {...touchableDoneProps}
