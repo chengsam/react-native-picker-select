@@ -75,6 +75,7 @@ export interface PickerSelectProps {
     fixAndroidTouchableBug?: boolean;
     doneText?: string;
     onDonePress?: () => void;
+    showArrows?: boolean;
     onUpArrow?: () => void;
     onDownArrow?: () => void;
     onClose?: () => void;
